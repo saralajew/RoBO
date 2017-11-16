@@ -290,7 +290,7 @@ def fabolas(objective_function, lower, upper, s_min, s_max,
     incumbent, incumbent_value = projected_incumbent_estimation(model_objective, X[:, :-1],
                                                                 proj_value=1)
     logger.info("Final incumbent %s with estimated performance %f",
-                str(incumbent), incumbent_value)
+                str(incumbent), np.exp(incumbent_value))
 
     results = dict()
     results["x_opt"] = incumbent[:-1].tolist()

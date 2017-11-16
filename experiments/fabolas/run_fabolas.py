@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 from robo.fmin import fabolas
 
 from hpolib.benchmarks.ml.svm_benchmark import SvmOnMnist, SvmOnVehicle, SvmOnCovertype
-from hpolib.benchmarks.ml.residual_networks import ResidualNeuralNetworkOnCIFAR10
+# from hpolib.benchmarks.ml.residual_networks import ResidualNeuralNetworkOnCIFAR10
 from hpolib.benchmarks.ml.conv_net import ConvolutionalNeuralNetworkOnCIFAR10, ConvolutionalNeuralNetworkOnSVHN
 
 
@@ -60,12 +60,13 @@ elif dataset == "svhn":
     subsets = [64., 32, 16, 8]
 
 elif dataset == "res_net":
-    f = ResidualNeuralNetworkOnCIFAR10(rng=rng)
-    num_iterations = 50
-    output_path = "./experiments/fabolas/results/res_%s/fabolas_%d" % (dataset, run_id)
-    s_max = f.train.shape[0]
-    s_min = 128  # Batch size
-    subsets = [256, 128, 64., 32]
+    print('pass residual networks')
+#    f = ResidualNeuralNetworkOnCIFAR10(rng=rng)
+#    num_iterations = 50
+#    output_path = "./experiments/fabolas/results/res_%s/fabolas_%d" % (dataset, run_id)
+#    s_max = f.train.shape[0]
+#    s_min = 128  # Batch size
+#    subsets = [256, 128, 64., 32]
 
 
 os.makedirs(output_path, exist_ok=True)

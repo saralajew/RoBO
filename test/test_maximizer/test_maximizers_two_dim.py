@@ -8,7 +8,10 @@ from robo.maximizers.random_sampling import RandomSampling
 
 
 def objective_function(x):
-    y = np.sum((0.5 - x) ** 2, axis=1)
+    if np.size(np.shape(x), 0) == 1: # single vector
+        y = np.sum((0.5 - x) ** 2, axis=0)
+    else:
+        y = np.sum((0.5 - x) ** 2, axis=1)
     return y
 
 

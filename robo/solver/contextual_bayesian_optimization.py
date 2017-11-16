@@ -175,9 +175,9 @@ class ContextualBayesianOptimization(BayesianOptimization):
         # Draw one random configuration
         self.X = np.concatenate(
             (self.Z, np.array([self.rng.uniform(self.S_lower, self.S_upper, self.dims_S)])), 1)
-        print "Evaluate randomly chosen candidate %s" % (str(self.X[0]))
+        print("Evaluate randomly chosen candidate {}".format(str(self.X[0])))
         self.Y = self.objective_fkt(self.X)
-        print "Configuration achieved a performance of %f " % (self.Y[0])
+        print("Configuration achieved a performance of {}".format(self.Y[0]))
 
     def predict(self, Z=None):
         """

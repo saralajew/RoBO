@@ -1,7 +1,7 @@
 # ---------- installation ---------
 #
-# 1. move the folder /misc and /Dockerfile into a temporary folder /<tmp>/
-# 2. move all the RoBO (git repo) files and folders into a folder /<tmp>/RoBO/ (you can exclude the docker folder)
+# 1. copy the folder /misc and /Dockerfile into a temporary folder /<tmp>/
+# 2. copy all the RoBO (git repo) files and folders into a folder /<tmp>/RoBO/ (you can exclude the docker folder)
 # 3. now the structurer of the folder should look like:  /<tmp>/misc
 #							 /<tmp>/Dockerfile
 #							 /<tmp>/RoBO

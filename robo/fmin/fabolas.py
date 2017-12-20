@@ -294,11 +294,12 @@ def fabolas(objective_function, lower, upper, s_min, s_max,
 
     results = dict()
     results["x_opt"] = incumbent[:-1].tolist()
+    results["y_opt_est"] = np.exp(incumbent_value)
     results["incumbents"] = [inc.tolist() for inc in incumbents]
     results["runtime"] = runtime
     results["overhead"] = time_overhead
     results["time_func_eval"] = time_func_eval
-
+    
     results["X"] = X
     results["y"] = y
     results["c"] = c

@@ -1,22 +1,8 @@
-# ---------- installation ---------
-#
-# 1. copy the folder /misc and /Dockerfile into a temporary folder /<tmp>/
-# 2. copy all the RoBO (git repo) files and folders into a folder /<tmp>/RoBO/ (you can exclude the docker folder)
-# 3. now the structurer of the folder should look like:  /<tmp>/misc
-#							 /<tmp>/Dockerfile
-#							 /<tmp>/RoBO
-# 4. go into the folder /<tmp>/ and start a bash in that folder
-# 5. run inside a bash: 'sudo docker build .' (including the nosetests this will cover some time)
-
 FROM ubuntu
 
 LABEL author="Sascha Saralajew" \
-      release-date="2017-11-15" \
-      version="v0.1"
-
-# copy modified RoBO version and misc
-COPY RoBO /home/RoBO/
-COPY misc /home/misc/
+      release-date="2017-12-15" \
+      version="v0.2"
 
 # install basic packages and RoBO dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils \
@@ -28,17 +14,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils \
     python3-pip \
     swig \
     wget \
- && /bin/bash -c "alias python=python3 pip=pip3" \
- && /bin/bash -c "source ~/.bashrc" \
- && pip3 install --upgrade pip \
+    python3-tk \
+    git
+
+# download RoBO docker branch
+RUN git clone -b docker https://github.com/saralajew/RoBO.git /home/RoBO/
+
+# install RoBO
+RUN pip3 install --upgrade pip \
+ && pip3 install ipython \
  && for req in $(cat /home/RoBO/all_requirements.txt); do pip3 install $req; done
 
-# install RoBo
-RUN /bin/bash -c "cd /home/RoBO/; python3 setup.py install"
+WORKDIR /home/RoBO
+RUN python3 setup.py install
 
-# copy modified python packages of cma and DIRECT
-RUN /bin/bash -c "cp -rf /home/misc/cma usr/local/lib/python3.5/dist-packages/; \
-                  cp -rf /home/misc/DIRECT usr/local/lib/python3.5/dist-packages/"
+# overwrite brocken packages
+RUN /bin/bash -c "cp -r /home/RoBO/docker/misc/cma /usr/local/lib/python3.5/dist-packages/cma/"
+RUN /bin/bash -c "cp -r /home/RoBO/docker/misc/DIRECT /usr/local/lib/python3.5/dist-packages/DIRECT/"
 
-# verify installation by nosetests call
-RUN /bin/bash -c "cd /home/misc/; source ./verify.sh"
+# generate alias
+RUN echo 'alias python=python3' >> ~/.bashrc
+RUN echo 'alias pip=pip3' >> ~/.bashrc
+RUN echo 'alias pydoc=pydoc3' >> ~/.bashrc
+
+# set startup dict
+WORKDIR /home/

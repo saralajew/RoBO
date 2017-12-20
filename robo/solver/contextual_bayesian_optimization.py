@@ -1,13 +1,13 @@
 import os
 import numpy as np
-from robo.acquisition.base_acquisition import BaseAcquisitionFunction
+from robo.acquisition_functions.base_acquisition import BaseAcquisitionFunction
 
 try:
     import cpickle as pickle
 except:
     import pickle
-from robo.util.exc import BayesianOptimizationError
-from robo import BayesianOptimization
+#from robo.util.exc import BayesianOptimizationError
+from robo.solver import BayesianOptimization
 from argparse import ArgumentError
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -77,9 +77,12 @@ class MeanAcquisitionFunction(BaseAcquisitionFunction):
 
     def __call__(self, X, derivative=False, **kwargs):
         if derivative:
-            raise BayesianOptimizationError(
-                BayesianOptimizationError.NO_DERIVATIVE,
-                "Mean  does not support derivative calculation until now")
+#            raise BayesianOptimizationError(
+#                BayesianOptimizationError.NO_DERIVATIVE,
+#                "Mean  does not support derivative calculation until now")
+            raise ValueError('BayesianOptimizationError(\
+                BayesianOptimizationError.NO_DERIVATIVE,\
+                "Mean  does not support derivative calculation until now")')
         if np.any(X < self.X_lower) or np.any(X > self.X_upper):
             return np.array([[- np.finfo(np.float).max]])
         mean, _ = self.model.predict(X)

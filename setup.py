@@ -1,7 +1,6 @@
 import os
 import sys
 from setuptools import setup, find_packages
-here = os.path.abspath(os.path.dirname(__file__))
 
 requires = [
     'DIRECT',
@@ -37,6 +36,8 @@ for i in user_provided_depend:
             dependency_links.append(opt_dependency_links[dependency_name])
         requires.append(dependency_name)
         sys.argv.remove(i)
+
+print(find_packages())
 
 setup(name='RoBO',
       version='0.2.1',
